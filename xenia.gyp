@@ -4,6 +4,7 @@
     'tools/tools.gypi',
     'third_party/beaengine.gypi',
     'third_party/gflags.gypi',
+    'third_party/glew/glew.gypi',
     'third_party/jansson.gypi',
     'third_party/sparsehash.gypi',
     'third_party/wslay.gypi',
@@ -211,6 +212,8 @@
                   'user32',
                   'ole32',
                   'ntdll',
+                  'opengl32',
+                  'gdi32',
                 ],
               }],
               ['OS == "mac"', {
@@ -253,12 +256,14 @@
         'jansson',
         'wslay',
         'alloy',
+        'glew',
       ],
       'export_dependent_settings': [
         'gflags',
         'jansson',
         'wslay',
         'alloy',
+        'glew',
       ],
 
       'direct_dependent_settings': {

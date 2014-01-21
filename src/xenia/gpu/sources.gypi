@@ -18,6 +18,7 @@
   ],
 
   'includes': [
+    'gl/sources.gypi',
     'nop/sources.gypi',
     'xenos/sources.gypi',
   ],

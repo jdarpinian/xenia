@@ -9,6 +9,7 @@
 
 #include <xenia/gpu/gpu.h>
 #include <xenia/gpu/gpu-private.h>
+#include <xenia/gpu/gl/gl_gpu.h>
 
 
 
@@ -17,7 +18,7 @@ using namespace xe::gpu;
 
 
 DEFINE_string(gpu, "any",
-    "Graphics system. Use: [any, nop, d3d11]");
+    "Graphics system. Use: [any, nop, d3d11, gl]");
 
 
 DEFINE_bool(trace_ring_buffer, false,
@@ -47,6 +48,8 @@ GraphicsSystem* xe::gpu::Create(Emulator* emulator) {
   } else if (FLAGS_gpu.compare("d3d11") == 0) {
     return CreateD3D11(emulator);
 #endif  // WIN32
+  } else if (FLAGS_gpu.compare("gl") == 0) {
+    return xe::gpu::gl::Create(emulator);
   } else {
     // Create best available.
     GraphicsSystem* best = NULL;
@@ -57,6 +60,10 @@ GraphicsSystem* xe::gpu::Create(Emulator* emulator) {
       return best;
     }
 #endif  // WIN32
+    best = xe::gpu::gl::Create(emulator);
+    if (best) {
+      return best;
+    }
 
     // Fallback to nop.
     return CreateNop(emulator);
